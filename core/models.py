@@ -14,7 +14,7 @@ class LocationEntry(models.Model):
     bs = models.IntegerField(blank=True, null=True)
     conn = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
-    inregions = models.CharField(max_length=255, blank=True, null=True)
+    inregions = models.ManyToManyField(to='WaypointEntry') #models.CharField(max_length=255, blank=True, null=True)
     lat = models.FloatField(blank=True, null=True)
     lon = models.FloatField(blank=True, null=True)
     t = models.CharField(max_length=255, blank=True, null=True)
@@ -24,17 +24,22 @@ class LocationEntry(models.Model):
     vac = models.IntegerField(blank=True, null=True)
     vel = models.IntegerField(blank=True, null=True)
     dcreated_at = models.DateTimeField(auto_now_add=True)
+    dtst = models.DateTimeField(blank=True, null=True)
+
+    def inregions_display(self):
+        return ', '.join([p.desc for p in self.inregions.all()])
 
 class WaypointEntry(models.Model):
     #{"_type": "waypoint", "desc": "home", "lat": 31.2376273, "lon": 34.3561845, "rad": 10, "topic": "owntracks/user/ginkgo/waypoints", "tst": 1643460966}
     _type = models.CharField(max_length=255, blank=True, null=True)
-    desc = models.CharField(max_length=255, blank=True, null=True)
+    desc = models.CharField(max_length=255, unique=True,)
     lat = models.FloatField(blank=True, null=True)
     lon = models.FloatField(blank=True, null=True)
     rad = models.IntegerField(blank=True, null=True)
     topic = models.CharField(max_length=255, blank=True, null=True)
     tst = models.IntegerField(blank=True, null=True)
     dcreated_at = models.DateTimeField(auto_now_add=True)
+    dtst = models.DateTimeField(blank=True, null=True)
 
 class TransitionEntry(models.Model):
     # {"_type": "transition", "acc": 31.696, "desc": "home", "event": "enter", "lat": 31.2376435, "lon": 34.3562534, "t": "l", "tid": "go", "topic": "owntracks/user/ginkgo/event", "tst": 1643460988, "wtst": 1643460966}
@@ -50,7 +55,17 @@ class TransitionEntry(models.Model):
     tst = models.IntegerField(blank=True, null=True)
     wtst = models.IntegerField(blank=True, null=True)
     dcreated_at = models.DateTimeField(auto_now_add=True)
+    dtst = models.DateTimeField(blank=True, null=True)
+
 
 class LocationEntryJson(models.Model):
     data = models.JSONField(blank=True, null=True)
     dcreated_at = models.DateTimeField(auto_now_add=True)
+    dtst = models.DateTimeField(blank=True, null=True)
+
+
+class WayPointsEntry(models.Model):
+    # {'_type': 'waypoints', 'topic': 'owntracks/user/ginkgo/waypoints', 'waypoints': [{'_type': 'waypoint', 'desc': 'home', 'lat': 31.2376273, 'lon': 34.3561845, 'rad': 10, 'tst': 1643460966}]}
+    _type = models.CharField(max_length=255, blank=True, null=True)
+    topic = models.CharField(max_length=255, blank=True, null=True)
+    waypoints = models.ManyToManyField(to=WaypointEntry)
