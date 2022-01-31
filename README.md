@@ -24,7 +24,7 @@ example settings to put in owntrack: http://52.14.213.58:5252/loc
 
 
 
-# setup owntrack setcret
+# setup owntrack secret
 edit the file `msTrack/server/config.py` to somthing like: 
 ```python
 LOCATION_ENCRYPTION_KEY = '<YOUR SECRET>'
