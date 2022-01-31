@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
+
+from server.config import LOCATION_ENCRYPTION_KEY
 from .models import LocationEntryJson, LocationEntry, TransitionEntry, WayPointsEntry, WaypointEntry
 from datetime import datetime, timezone
 import nacl.secret
@@ -104,7 +106,7 @@ def location_ping(request):
     # Decrypt the data
     # https://github.com/home-assistant/core/blob/3825f80a2dd087ae70654079cd9f3071289b8423/homeassistant/components/owntracks/messages.py#L292-L320
     keylen, decrypt = get_cipher()
-    key = 'nhrnhr0'
+    key = LOCATION_ENCRYPTION_KEY
     key = key.encode("utf-8")
     key = key[:keylen]
     key = key.ljust(keylen, b"\0")
