@@ -1,18 +1,18 @@
 # How to setup
 ```bash
-$ git clone https://github.com/nhrnhr0/msTracker.git
-$ cd msTracker
-$ python -m venv env
-$ source env/bin/activate
-$ pip install -r requirements.txt
-$ python manage.py migrate
-$ python manage.py createsuperuser
+git clone https://github.com/nhrnhr0/msTracker.git
+cd msTracker
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
     <follow instructions>
 ```
 
 # How to run
 ```bash
-$ python manage.py runserver 0.0.0.0:5252
+python manage.py runserver 0.0.0.0:5252
 ```
 
 this server has 2 endpoints `/loc`, and `/admin`.
