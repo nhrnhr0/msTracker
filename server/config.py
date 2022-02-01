@@ -1,1 +1,0 @@
-LOCATION_ENCRYPTION_KEY = 'nhrnhr0'
