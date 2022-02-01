@@ -31,6 +31,9 @@ def create_LocationEntryJson(data):
     return LocationEntryJson.objects.create(data=data,dtst=dtst)
 
 def create_LocationEntry(data):
+    created_at_var = None
+    if data.get('created_at', None) != None:
+        created_at_var = datetime.fromtimestamp(data.get('created_at', None), timezone.utc)
     #{"_type": "location", "BSSID": "30:b5:c2:e9:f4:2a", "SSID": "TP-LINK_E9F42A", "acc": 4, "alt": 112, "batt": 64, "bs": 1, "conn": "w", "created_at": 1643483730, "inregions": ["home"], "lat": 31.237657, "lon": 34.3561878, "t": "u", "tid": "go", "topic": "owntracks/user/ginkgo", "tst": 1643483730, "vac": 1, "vel": 6}
     ret = LocationEntry.objects.create(
         _type=data.get('_type', None),
@@ -41,8 +44,7 @@ def create_LocationEntry(data):
         batt=data.get('batt', None),
         bs=data.get('bs', None),
         conn=data.get('conn', None),
-        created_at=datetime.fromtimestamp(data.get('created_at', None), timezone.utc),
-        
+        created_at=created_at_var,
         lat=data.get('lat', None),
         lon=data.get('lon', None),
         t=data.get('t', None),

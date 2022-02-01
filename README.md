@@ -3,7 +3,12 @@
 git clone https://github.com/nhrnhr0/msTracker.git
 cd msTracker
 python -m venv env
+
+# linux activate mechine
 source env/bin/activate
+# windows activate mechine 
+./env/bin/activate
+
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
