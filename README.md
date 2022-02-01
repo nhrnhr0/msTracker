@@ -7,7 +7,7 @@ python -m venv env
 # linux activate mechine
 source env/bin/activate
 # windows activate mechine 
-./env/bin/activate
+./env/Scripts/activate
 
 pip install -r requirements.txt
 python manage.py migrate
