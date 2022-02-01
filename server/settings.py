@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-d0!m+h*wfk3(o&_)to1^t9l^a2^z&@r(^s-qpg+(#v*v89lq25
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['52.14.213.58', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['52.14.213.58', 'localhost', '127.0.0.1', 'tracker.boost-pop.com']
 
 # Application definition
 
