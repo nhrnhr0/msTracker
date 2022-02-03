@@ -104,6 +104,7 @@ def create_TransitionEntry(data):
 @api_view(['POST'])
 def location_ping(request):
     data = request.data
+    print('raw data: ', data)
 
     # Decrypt the data
     # https://github.com/home-assistant/core/blob/3825f80a2dd087ae70654079cd9f3071289b8423/homeassistant/components/owntracks/messages.py#L292-L320
@@ -117,7 +118,7 @@ def location_ping(request):
     message = message.decode("utf-8")
     data = json.loads(message)
 
-    print(data)
+    print('cipher data: ', data)
     create_LocationEntryJson(data)
     if data.get('_type', None) == 'location':
         create_LocationEntry(data)
