@@ -108,16 +108,16 @@ def location_ping(request):
 
     # Decrypt the data
     # https://github.com/home-assistant/core/blob/3825f80a2dd087ae70654079cd9f3071289b8423/homeassistant/components/owntracks/messages.py#L292-L320
-    keylen, decrypt = get_cipher()
-    key = LOCATION_ENCRYPTION_KEY
-    key = key.encode("utf-8")
-    key = key[:keylen]
-    key = key.ljust(keylen, b"\0")
-    ciphertext = data['data']
-    message = decrypt(ciphertext, key)
-    message = message.decode("utf-8")
-    data = json.loads(message)
-
+    if data.get('_type', None) == 'encrypted':
+        keylen, decrypt = get_cipher()
+        key = LOCATION_ENCRYPTION_KEY
+        key = key.encode("utf-8")
+        key = key[:keylen]
+        key = key.ljust(keylen, b"\0")
+        ciphertext = data['data']
+        message = decrypt(ciphertext, key)
+        message = message.decode("utf-8")
+        data = json.loads(message)
     print('cipher data: ', data)
     create_LocationEntryJson(data)
     if data.get('_type', None) == 'location':
